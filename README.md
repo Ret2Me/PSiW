@@ -283,7 +283,73 @@ int main() {
 }
 ```
 
+### Open
+Funkcja open odpowiada za utworzenie file_descriptora na podstawie ścieki do pliku.  
+  
+`open(const char *path, int oflag, ...)`  
+ew. jeśli `O_CREAT` zostało ustawione:  
+`open(const char *path, int oflag, mode_t mode)`  
+  
+> [!CAUTION]  
+> Jeśli zdecydujemy się uzyc open z flaga O_CREAT trzeba zwrocic uwagę ze program jest uruchomiony z `umask-iem` (umask – set file creation mode mask).  
+>    
+> Aby sprawdzić aktualne ustawienie umaska nalezy wpisac w terminalu komende `umask`. Przekazane przez parametr uprawnienia zostaną "pomniejszone" o zawartość umaska.  
+  
+  
+Dostępne flagi:
+```
+     The flags specified for the oflag argument must include exactly one of the following file access modes:
 
+           O_RDONLY        open for reading only
+           O_WRONLY        open for writing only
+           O_RDWR          open for reading and writing
+           O_SEARCH        open directory for searching
+           O_EXEC          open for execute only
+
+     In addition any combination of the following values can be or'ed in oflag:
+
+           O_NONBLOCK      do not block on open or for data to become available
+           O_APPEND        append on each write
+           O_CREAT         create file if it does not exist
+           O_TRUNC         truncate size to 0
+           O_EXCL          error if O_CREAT and the file exists
+           O_SHLOCK        atomically obtain a shared lock
+           O_EXLOCK        atomically obtain an exclusive lock
+           O_DIRECTORY     restrict open to a directory
+           O_NOFOLLOW      do not follow symlinks
+           O_SYMLINK       allow open of symlinks
+           O_EVTONLY       descriptor requested for event notifications only
+           O_CLOEXEC       mark as close-on-exec
+           O_NOFOLLOW_ANY  do not follow symlinks in the entire path.
+```
+
+```C
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+
+    char pathname[] = "/tmp/test.txt";
+    int fd = open(pathname, O_RDWR | O_CREAT, 0777);
+    execlp("ls", "ls", "-l", "/tmp/", NULL);
+    return 0;
+}
+/*
+Output:
+
+sh-3.2# gcc open.c && ./a.out
+total 8
+srwx------  1 prywatne  wheel    0 16 sty 10:23 2f093fe9-a235-5d1c-9a62-3fae2cdf7eb1
+srwx------  1 prywatne  wheel    0 16 sty 10:23 7c3338c5-8eec-50ae-bc4a-1f6969419936
+-rwxr-xr-x@ 1 root      wheel    0 16 sty 10:45 test.txt
+
+*/
+```
+
+
+
+???
 - kod z execXXX i pytanie która komenda da taki sam efekt np. ls | tr -abc, ls > tr -abc, tr -abc | ls, tr -abc > ls
 
 
@@ -302,7 +368,7 @@ I jest powiedziane że powyższy kod został wykonany dwa razy i pytanie jest ja
 
 - Pytanie w stylu z jakimi uprawnieniami użytkownik stworzy plik jeśli typowo nie podał ich w funkcji?  
 Iirc to jest odp że plik będzie miał uprawnienia takie jak umask'a użytkownika w systemie?? Czy coś takiego  
-`Prawidłową odpowiedzią powinno być umask z jakim został uruchomiony proces przez uzytkownika`
+`Prawidłową odpowiedzią powinno być umask z jakim został uruchomiony proces przez uzytkownika`
 
 
 - ogarnij kiedy if zwraca (true czy false jak masz if (fork()) {}
