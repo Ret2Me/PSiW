@@ -347,6 +347,10 @@ srwx------  1 prywatne  wheel    0 16 sty 10:23 7c3338c5-8eec-50ae-bc4a-1f696941
 */
 ```
 
+### Wait
+Funkcja wait wywoływana jest zazwyczaj przez rodzica, aby poczekałon na zakończenie pracy swojego dziecka.
+Funkcja wait zwraca PID dziecka które zakończyło działanie, ona zmienną state do której zapisywany jest exit code programu,
+
 
 
 ???
@@ -369,7 +373,6 @@ I jest powiedziane że powyższy kod został wykonany dwa razy i pytanie jest ja
 - Pytanie w stylu z jakimi uprawnieniami użytkownik stworzy plik jeśli typowo nie podał ich w funkcji?  
 Iirc to jest odp że plik będzie miał uprawnienia takie jak umask'a użytkownika w systemie?? Czy coś takiego  
 `Prawidłową odpowiedzią powinno być umask z jakim został uruchomiony proces przez uzytkownika`
-
 
 - ogarnij kiedy if zwraca (true czy false jak masz if (fork()) {}
 
