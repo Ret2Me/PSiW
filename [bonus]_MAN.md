@@ -12,8 +12,18 @@ man [numer-sekcji] komenda
 
 > [!CAUTION]
 > Niestety standardowa bazadanych man-a dołączona do systemów ubuntu / debian nie zawiera informacji o IPC.  
-> Co jest **krytycznie** potrzebne do dobrego napisania kolokwium.    
-> W celu rozwiązania tego problemu należy doinstalować strony dedykowane deweloperą poleceniem `apt install manpages-dev`.  
+> Co jest **krytycznie** potrzebne do dobrego napisania kolokwium.  
+>   
+> **Ubuntu / Debian**:  
+> W celu rozwiązania tego problemu należy doinstalować strony dedykowane deweloperą poleceniem `apt install manpages-dev`.
+>   
+> **Windows**:  
+> Najprostszym rozwiązaniem będzie zainstalowanie WSLv2 (Windows Subsystem for Linux).  
+>   
+> **MacOS**:  
+> W przypadku MacOS jest problem ponieważ Brew nie ma takiego packageu a zatem rozwiązania są dwa:  
+> 1. Rozwiązanie zaproponowane na [stackexchange](https://apple.stackexchange.com/questions/87863/where-are-the-posix-message-functions-msgsnd-msgrcv-etc-man-pages-in-mac). Którego nie testowałem.  
+> 2. Wykorzystanie dockera z ubuntu i na nim wykonać: `apt update`, `apt install man-db`, `apt install manpages-dev`.   
 
 
 ## Sekcje
