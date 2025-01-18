@@ -10,8 +10,16 @@ Na kolokwiach dozwolone jest korzystanie z komend:
 Budowa polecenia man:  
 man [numer-sekcji] komenda  
 
+> [!CAUTION]
+> Niestety standardowa bazadanych man-a dołączona do systemów ubuntu / debian nie zawiera informacji o IPC.  
+> Co jest **krytycznie** potrzebne do dobrego napisania kolokwium.    
+> W celu rozwiązania tego problemu należy doinstalować strony dedykowane deweloperą poleceniem `apt install manpages-dev`.  
+
+
 ## Sekcje
 Na kolokwium nabardziej przydaten okażą się być (1, 2, 3, 7)  
+Dostępne sekcje możemy odczytać przy pomocy polecenia:
+```man man```
 1.   **Executable programs or shell commands:** Commands that can be executed in the shell, like ls, cd, or grep.
 2.   **System calls:** Functions provided by the kernel, such as open, read, and write.
 3.   **Library calls:** Functions within program libraries, like those in the C standard library, such as printf and malloc.
