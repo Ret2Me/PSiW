@@ -32,7 +32,7 @@ Przykładami takich mechanizmów są:
 2. **msgbuf** - wskaźnik do obszaru pamięci zawierającego treść komunikatu  
 3. ***msgs** - rozmiar właściwej treści komunikatu  
 4. **msgflg** - flaga specyfikująca zachowanie się funkcji w warunkach nietypowych:  
-   0  / IPC_NOWAI - jeśli kolejka jest pełna wiadomość nie zostanie zapisana, proces kontynuuje działanie.  
+   0  / IPC_NOWAIT - jeśli kolejka jest pełna wiadomość nie zostanie zapisana, proces kontynuuje działanie.  
   
 `int msgrcv(int msgid, struct msgbuf *msgp, int msgs, long msgtyp, int msgflg)` - odczyt komunikatów z kojeki
 1. **msgid** - klucz (identyfikator) naszej kolejki  
@@ -51,7 +51,7 @@ Przykładami takich mechanizmów są:
 #### Funkcje dodatkowe:  
 `key_t ftok(const char *pathname, int proj_id);` - wygenerowanie unikatowego klucza kolejki na podstawie sciezki do pliku w projekcie i id projektu
 1. `pathname` ścieżka do pliku (najlepiej w folderze naszego projektu), plik musi istnieć i być "dostępny"
-2. `proj_id` identyfikator projektu dowolna liczba lub pojedyńcza literka 
+2. `proj_id` identyfikator projektu dowolna liczba lub pojedyncza literka 
 `msgctl(int msgid, int cmd, struct msgid_ds *buf)` - dokonywanie operacji na samej kolejce (najczesciej uzywane do jej usuwania)  
 1. **msgid** - identyfikator kolejki  
 2. **cmd** - stała specyfikująca rodzaj operacji  
@@ -87,7 +87,7 @@ struct msgbuf {
 > Jeśli w kolejce komunikatów nie ma miejsca, proces zostaje zablokowany chyba że w funkcji `msgnd()` w parametrze `msgflg` zostanie ustawiona flaga `IPC_NOWAIT`.
   
 > [!NOTE]
-> Po wywołaniu `msgrcv()` jeśli w kolejce komunikatów nie ma komunikatów, proces będzie ocekiwać aż jakieś napłyną chyba że w parametrze `msgflg` zostanie ustawiona flaga `IPC_NOWAIT`.
+> Po wywołaniu `msgrcv()` jeśli w kolejce komunikatów nie ma komunikatów, proces będzie oczekiwać aż jakieś napłyną chyba że w parametrze `msgflg` zostanie ustawiona flaga `IPC_NOWAIT`.
    
 > [!NOTE]
 > Funkcja `msgrcv()` zwraca rozmiar odebranego komunikatu w bajtach.
@@ -117,3 +117,72 @@ int main() {
 ```
 
 
+
+
+#### Przykład 2 (wysyłanie komunikatu między procesami):  
+**Pierwszy plik:**
+```C
+#include <sys/msg.h>
+#include <stdio.h>
+
+typedef struct msgbuf {
+  long mtype;  // typ komunikatu wartość > 0 
+  char mtext[80];  // treść komunikatu
+} msgbuf;
+
+int main() {
+
+    int key = 123;
+    
+    int msg_key = msgget(key, IPC_CREAT | 0666);
+    if (msg_key < 0) {
+        printf("%i", msg_key);
+        return 0;
+    }
+
+    msgbuf message = {
+        7, "Nie lubie PSiW :c"
+    };
+
+    int error = msgsnd(msg_key, &message, sizeof(message.mtext), 0);
+
+    if (error < 0) {
+        printf("%i", error);
+        perror("msgsnd");
+        return 0;
+    }
+
+}
+```
+
+**Drugi plik:**
+```C
+#include <sys/msg.h>
+#include <stdio.h>
+
+typedef struct msgbuf {
+  long mtype;  // typ komunikatu wartość > 0 
+  char mtext[5];  // treść komunikatu
+} msgbuf;
+
+int main() {
+ 
+ int key = 123;
+    
+    int msg_key = msgget(key, IPC_CREAT | 0666);
+    if (msg_key < 0) {
+        printf("%i", msg_key);
+        return 0;
+    }
+
+    msgbuf message = {};
+    int msg_read = msgrcv(msg_key, &message, sizeof(message.mtext), 0, MSG_NOERROR);
+    if (msg_read < 0){
+        perror("msgrcv");
+        return 0;
+    }
+   
+   printf("Message: %s, \nType: %i\n", message.mtext, message.mtype);
+
+}
+```
