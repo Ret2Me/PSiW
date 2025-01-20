@@ -9,7 +9,7 @@ uzytkownikowi interakcje z programem:
 
 
 ### Fork
-Fork uruchamia "kopię" programu który kontyuuje wykonywanie kodu w miejscu 
+Fork uruchamia "kopię" programu który kontynuuje wykonywanie kodu w miejscu 
 w którym została wywołana funkcja `int pid = fork()`. Funkcja fork w dziecku naszego procesu zwróci 0
 natomiast proces rodzic (eng. parent) w zmiennej pid będzie mieć dostęp do ProcessID nowo utworzonego dziecka.
 
@@ -31,8 +31,8 @@ Dane raz odczytane z pipe-u zostają natychmiastowo usunięte.
 > Jeśli spróbujemy dokonać zapisu do pipe-a którego nic nie nasłuchuje nasz proces otrzyma sygnał SIGPIPE który powoduje natychmiastowe zamknięcie programu. 
 
 > [!NOTE]  
-> Nalezy zwrocic tez uwage ze nie jestesmy w stanie przesowac sie po danych wysylanych przez pipe z wykorzystaniem
-lseeka (umozliwia on przesowanie kursora jedynie w przypodku danych odczytywanych z "dysku").  
+> Nalezy zwrocic tez uwage ze nie jestesmy w stanie przesuwac sie po danych wysylanych przez pipe z wykorzystaniem
+lseeka (umozliwia on przesuwanie kursora jedynie w przypadku danych odczytywanych z "dysku").  
 
 
 
@@ -145,7 +145,7 @@ Jak mozemy zauwazyc nasz proces niespodziewanie zakonczyl się z kodem 141.
 Sygnał 141 oznacz zakończenie działania spowodowane przerwaniem potoku "Broken Pipe" (SIGPIPE)
 
 ### FIFO (ak. Names Pipe)
-Kolejka nazwa róni się od pipeu tym ze procesy komunikujace się przez nią nie muszą być spokrewnione (nie muszą być forkami).
+Kolejka nazwana różni się od pipeu tym ze procesy komunikujace się przez nią nie muszą być spokrewnione (nie muszą być forkami).
 
 
 Dostępne flagi przy otwieraniu FIFO:
@@ -160,7 +160,7 @@ Dostępne flagi przy otwieraniu FIFO:
 > Jeśli spróbujemy dokonać zapisu do pipe-a którego nic nie nasłuchuje nasz proces otrzyma sygnał SIGPIPE który powoduje natychmiastowe zamknięcie programu.
 
 > [!NOTE]  
-> Jeśli spróbujemy utworzyć kolejkę w ściece pod którą juz istnieje kolejka funkcja mkfifo() zwroci blad `[EEXIST] The named file exists.`
+> Jeśli spróbujemy utworzyć kolejkę w ścieżce pod którą juz istnieje kolejka funkcja mkfifo() zwroci blad `[EEXIST] The named file exists.`
 
 
 Aby utworzyć kolejkę wystarczy wykorzystać funkcję `int mkfifo(const char *pathname, mode_t mode);`
@@ -348,8 +348,8 @@ srwx------  1 prywatne  wheel    0 16 sty 10:23 7c3338c5-8eec-50ae-bc4a-1f696941
 ```
 
 ### Wait
-Funkcja wait wywoływana jest zazwyczaj przez rodzica, aby poczekałon na zakończenie pracy swojego dziecka.
-Funkcja wait zwraca PID dziecka które zakończyło działanie, ona zmienną state do której zapisywany jest exit code programu,
+Funkcja wait wywoływana jest zazwyczaj przez rodzica, aby poczekał on na zakończenie pracy swojego dziecka.
+Funkcja wait zwraca PID dziecka które zakończyło działanie oraz zmienną state do której zapisywany jest exit code programu,
 
 
 
