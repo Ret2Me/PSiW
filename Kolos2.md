@@ -141,7 +141,7 @@ int main() {
     }
 
     msgbuf message = {
-        7, "Nie lubie PSiW :c"
+        7, "Uwielbiam PSiW :)"
     };
 
     int error = msgsnd(msg_key, &message, sizeof(message.mtext), 0);
