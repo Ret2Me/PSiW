@@ -11,12 +11,13 @@ Budowa polecenia man:
 man [numer-sekcji] komenda  
 
 > [!CAUTION]
-> Niestety standardowa bazadanych man-a dołączona do systemów ubuntu / debian nie zawiera informacji o IPC.  
+> Niestety standardowa bazadanych man-a dołączona do niektórych systemów ubuntu / debian nie zawiera informacji o IPC.  
 > Co jest **krytycznie** potrzebne do dobrego napisania kolokwium.  
-> W celu rozwiązania tego problemu należy doinstalować strony dedykowane deweloperą poleceniem:  
+> Przed przystąpieniem do kolokwium proszę zweryfikuj czy posiadasz strony odnośnie np. `msgget(2)` 
+> Jeśli problem istnieje to w celu jego rozwiązania należy doinstalować strony dedykowane deweloperą poleceniem:  
 > **Ubuntu / Debian**: `apt install manpages-dev`  
 > **Red Hat/Fedora/CentOS:** `sudo dnf install man-pages`  
-> **Arch (Dla tych co używają Archa btw.):** `sudo pacman -S man-pages`  
+> **Arch:** `sudo pacman -S man-pages`  
 > 
 > **Windows**:  
 > Najprostszym rozwiązaniem będzie zainstalowanie WSLv2 (Windows Subsystem for Linux) z Debianem / Ubuntu.  
@@ -28,7 +29,7 @@ man [numer-sekcji] komenda
 
 
 ## Sekcje
-Na kolokwium nabardziej przydaten okażą się być (1, 2, 3, 7)  
+Na kolokwium nabardziej przydatne okażą się być (1, 2, 3, 7)  
 Dostępne sekcje możemy odczytać przy pomocy polecenia:
 ```man man```
 1.   **Executable programs or shell commands:** Commands that can be executed in the shell, like ls, cd, or grep.
