@@ -1,7 +1,7 @@
 # PSiW opracowanie Kolos 2  
 
 ## Wstęp  
-Mechanizmy IPC (Inter Process Communication) słóżą do komunikacji między programami w ramach tego samego  
+Mechanizmy IPC (Inter Process Communication) służą do komunikacji między programami w ramach tego samego  
 systemu operacyjnego (dokładniej namespace-u w ramach danego systemu).  
   
 Przykładami takich mechanizmów są:  
@@ -36,7 +36,7 @@ Przykładami takich mechanizmów są:
   
 `int msgrcv(int msgid, struct msgbuf *msgp, int msgs, long msgtyp, int msgflg)` - odczyt komunikatów z kojeki
 1. **msgid** - klucz (identyfikator) naszej kolejki  
-2. ***msgp** - wskaźnik do struktury zawierającej kreść komunikatu  
+2. ***msgp** - wskaźnik do struktury do której chcemy zapisać wiadomość  
 3. **msgs** -rozmiar właściwej treści komunikatu  
 4. **msgtyp** - typ komunikatu jaki ma być odebrany  
    msgtyp = 0 typ nie ma znaczenia  
